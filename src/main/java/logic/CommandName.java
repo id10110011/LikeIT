@@ -1,0 +1,19 @@
+package logic;
+
+public enum CommandName {
+    DO_LOGIN,
+    DO_REGISTER,
+    DO_LOGOUT,
+    GET_QUESTIONS,
+    ADD_QUESTION,
+    EDIT_QUESTION,
+    DELETE_QUESTION,
+    GET_MESSAGES,
+    ADD_MESSAGE,
+    EDIT_MESSAGE,
+    DELETE_MESSAGE,
+    GET_USERS,
+    EDIT_USER,
+    CHANGE_LANGUAGE,
+    NO_SUCH_COMMAND,
+}
