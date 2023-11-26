@@ -1,14 +1,16 @@
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import logic.CommandHelper;
+import logic.ICommand;
 
 import java.io.IOException;
 
 public class Controller extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     public Controller() { super(); }
 
@@ -22,40 +24,29 @@ public class Controller extends HttpServlet {
         processCommands(req, resp);
     }
 
-    private void processCommands(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String commandName = req.getRequestURI().substring(1);
-        if (commandName.contains("/")) {
-            commandName = parseComplexCommand(commandName);
-        }
+    private void processCommands(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
         ICommand command = CommandHelper.getInstance().getCommand(commandName);
-        CommandAnswer answer;
-        try{
-            answer = command.execute(req);
+        String page;
+        try {
+            page = command.execute(request);
         } catch (Exception e) {
-            answer = new CommandAnswer(JspPageName.ERROR_PAGE, "", false);
+            page = JspPageName.ERROR_PAGE;
         }
-        if (!answer.isRedirect()) {
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher(answer.getForwardPage());
-            if (requestDispatcher != null) {
-                requestDispatcher.forward(req, resp);
-            } else {
-                errorMessageDirectlyFromResponse(resp);
-            }
+        if (command instanceof ChangeLanguageCommand) {
+            response.sendRedirect(page);
         } else {
-            resp.sendRedirect(answer.getRedirectUrl());
+            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+            if (dispatcher != null) {
+                dispatcher.forward(request, response);
+            } else {
+                errorMessageDirectlyFromResponse(response);
+            }
         }
     }
 
     private String parseComplexCommand(String command) {
-        if (command.endsWith("/review")) {
-            return "review";
-        } else if (command.endsWith("/delete") && command.contains("review")) {
-            return "delete-review";
-        } else if (command.endsWith("/delete") && command.contains("film")) {
-            return "delete-film";
-        } else {
-            return command.substring(0, command.indexOf("/"));
-        }
+        return null;
     }
 
     private void errorMessageDirectlyFromResponse(HttpServletResponse response) throws IOException {
