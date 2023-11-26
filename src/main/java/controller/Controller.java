@@ -33,15 +33,11 @@ public class Controller extends HttpServlet {
         } catch (Exception e) {
             page = JspPageName.ERROR_PAGE;
         }
-        if (command instanceof ChangeLanguageCommand) {
-            response.sendRedirect(page);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+        if (dispatcher != null) {
+            dispatcher.forward(request, response);
         } else {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(page);
-            if (dispatcher != null) {
-                dispatcher.forward(request, response);
-            } else {
-                errorMessageDirectlyFromResponse(response);
-            }
+            errorMessageDirectlyFromResponse(response);
         }
     }
 
