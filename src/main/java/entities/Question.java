@@ -3,12 +3,20 @@ package entities;
 import java.util.List;
 
 public class Question {
-    private final int id;
+    private int id;
     private String text;
+    private final int userId;
     private List<Message> answers;
 
-    public Question(int id) {
+    public Question(int id, String text, int userId) {
         this.id = id;
+        this.text = text;
+        this.userId = userId;
+    }
+
+    public Question(String text, int userId) {
+        this.text = text;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -29,5 +37,9 @@ public class Question {
 
     public void setAnswers(List<Message> answers) {
         this.answers = answers;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }

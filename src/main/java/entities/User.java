@@ -4,24 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private final int id;
+    private int id;
     private String name;
     private String surname;
     private String email;
     private int age;
     private double rating;
-    private String passHash;
+    private String password;
     private Role role = Role.USER;
     private List<Question> questions;
 
-    public User(int id, String name, String surname, String email, int age, double rating, String passHash, Role role) {
-        this.id = id;
+    public User(int id, String name, String surname, String email, int age, double rating, Role role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.age = age;
         this.rating = rating;
-        this.passHash = passHash;
+        this.role = role;
+        this.questions = new ArrayList<>();
+    }
+
+    public User(String name, String surname, String email, int age, double rating, String password, Role role) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.age = age;
+        this.rating = rating;
+        this.password = password;
         this.role = role;
         this.questions = new ArrayList<>();
     }
@@ -86,12 +95,12 @@ public class User {
         this.rating = rating;
     }
 
-    public String getPassHash() {
-        return passHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassHash(String passHash) {
-        this.passHash = passHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Role getRole() {
