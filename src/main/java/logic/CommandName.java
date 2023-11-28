@@ -1,9 +1,9 @@
 package logic;
 
 public enum CommandName {
-    DO_LOGIN,
-    DO_REGISTER,
-    DO_LOGOUT,
+    LOGIN,
+    REGISTER,
+    LOGOUT,
     GET_QUESTIONS,
     ADD_QUESTION,
     EDIT_QUESTION,
