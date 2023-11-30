@@ -29,7 +29,7 @@ public class LoginCommand implements ICommand {
             return JspPageName.LOGIN_PAGE;
         }
         request.getSession().setAttribute("user", user);
-        request.setAttribute("loginFlag", true);
+        request.setAttribute("login", true);
         return JspPageName.LOGIN_PAGE;
     }
 }

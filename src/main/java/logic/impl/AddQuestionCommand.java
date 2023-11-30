@@ -30,6 +30,6 @@ public class AddQuestionCommand implements ICommand {
             log.error(e.getMessage());
             return JspPageName.ERROR_PAGE;
         }
-        return new GetQuestionsCommand().execute(request);
+        return JspPageName.QUESTION_PAGE;
     }
 }

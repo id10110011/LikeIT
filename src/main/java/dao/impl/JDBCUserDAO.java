@@ -7,10 +7,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import pool.BasicConnectionPool;
 import pool.ConnectionPool;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +20,8 @@ public class JDBCUserDAO implements UserDAO {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO USER (u_name, u_surname, u_email, u_age," +
-                            " u_rating, u_password, u_role) VALUES(?, ? ,?, ?, ?, ?, ?)"
+                            " u_rating, u_password, u_role) VALUES(?, ? ,?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS
 
             );
             preparedStatement.setString(1, user.getName());
@@ -67,7 +65,7 @@ public class JDBCUserDAO implements UserDAO {
                     final String surname = result.getString("u_surname");
                     final int age = result.getInt("u_age");
                     final double rating = result.getInt("u_rating");
-                    final Role role = Role.valueOf(result.getString("u_role"));
+                    final Role role = Role.fromString(result.getString("u_role"));
                     pool.releaseConnection(connection);
                     return new User(id, name, surname, email, age, rating, role);
                 } else {

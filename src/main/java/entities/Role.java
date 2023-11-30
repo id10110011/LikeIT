@@ -1,8 +1,8 @@
 package entities;
 
 public enum Role {
-    USER("User"),
-    ADMIN("Admin");
+    USER("USER"),
+    ADMIN("ADMIN");
 
 
     private final String name;
@@ -12,5 +12,14 @@ public enum Role {
 
     public String getName() {
         return name;
+    }
+
+    public static Role fromString(String text) {
+        for (Role role : Role.values()) {
+            if (role.name.equalsIgnoreCase(text)) {
+                return role;
+            }
+        }
+        return null;
     }
 }

@@ -21,7 +21,7 @@ public class GetQuestionCommand implements ICommand {
 
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        int questionId = Integer.parseInt(request.getParameter("question_id"));
+        int questionId = Integer.parseInt(request.getParameter("questionId"));
         List<Message> messages;
         Question question;
         try {
