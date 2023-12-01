@@ -6,7 +6,7 @@ public class Question {
     private int id;
     private String text;
     private final int userId;
-    private List<Message> answers;
+    private List<Message> messages;
 
     public Question(int id, String text, int userId) {
         this.id = id;
@@ -31,12 +31,12 @@ public class Question {
         this.text = text;
     }
 
-    public List<Message> getAnswers() {
-        return answers;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setAnswers(List<Message> answers) {
-        this.answers = answers;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public int getUserId() {
