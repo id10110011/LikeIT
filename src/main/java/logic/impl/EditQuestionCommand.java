@@ -14,8 +14,8 @@ public class EditQuestionCommand implements ICommand {
     private final QuestionDAO questionDAO = new JDBCQuestionDAO();
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        int questionId = Integer.parseInt(request.getParameter("q_id"));
-        String text = request.getParameter("q_text");
+        int questionId = Integer.parseInt(request.getParameter("questionId"));
+        String text = request.getParameter("questionText");
         try {
             questionDAO.updateQuestion(questionId, text);
         } catch (RuntimeException e) {

@@ -17,12 +17,13 @@ public class EditUserCommand implements ICommand {
     public String execute(HttpServletRequest request) throws CommandException {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
+        int age;
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             return JspPageName.LOGIN_PAGE;
         }
         try {
-            int age = Integer.parseInt(request.getParameter("age"));
+            age = Integer.parseInt(request.getParameter("age"));
             userDAO.updateUser(user.getId(), name, surname, age);
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Age should be a positive number");
@@ -33,7 +34,11 @@ public class EditUserCommand implements ICommand {
             log.error(e.getMessage());
             return JspPageName.EDIT_USER_PAGE;
         }
-        request.setAttribute("message", "Successfully registered, you can login now");
+        user.setAge(age);
+        user.setName(name);
+        user.setSurname(surname);
+        request.getSession().removeAttribute("user");
+        request.getSession().setAttribute("user", user);
         return JspPageName.EDIT_USER_PAGE;
     }
 }

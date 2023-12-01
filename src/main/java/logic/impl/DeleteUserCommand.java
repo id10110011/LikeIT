@@ -14,7 +14,7 @@ public class DeleteUserCommand implements ICommand {
     private final UserDAO userDAO = new JDBCUserDAO();
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        int userId = Integer.parseInt(request.getParameter("user_id"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
         try {
             userDAO.removeUser(userId);
         } catch (RuntimeException e) {

@@ -16,7 +16,7 @@ public class AddMessageCommand implements ICommand {
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
         String text = request.getParameter("text");
-        int questionId = Integer.parseInt(request.getParameter("question_id"));
+        int questionId = Integer.parseInt(request.getParameter("questionId"));
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             return JspPageName.LOGIN_PAGE;
@@ -29,6 +29,6 @@ public class AddMessageCommand implements ICommand {
             log.error(e.getMessage());
             return JspPageName.ERROR_PAGE;
         }
-        return new GetQuestionCommand().execute(request);
+        return new GetQuestionsCommand().execute(request);
     }
 }

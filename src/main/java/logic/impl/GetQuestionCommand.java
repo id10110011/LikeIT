@@ -35,7 +35,7 @@ public class GetQuestionCommand implements ICommand {
             log.error(e.getMessage());
             return JspPageName.ERROR_PAGE;
         }
-        question.setAnswers(messages);
+        question.setMessages(messages);
         request.setAttribute("question", question);
         return JspPageName.QUESTION_PAGE;
     }

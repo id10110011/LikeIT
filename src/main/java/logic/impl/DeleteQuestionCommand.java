@@ -13,7 +13,7 @@ public class DeleteQuestionCommand implements ICommand {
     private final QuestionDAO questionDAO = new JDBCQuestionDAO();
     @Override
     public String execute(HttpServletRequest request) throws CommandException {
-        int questionId = Integer.parseInt(request.getParameter("question_id"));
+        int questionId = Integer.parseInt(request.getParameter("questionId"));
         try {
             questionDAO.removeQuestion(questionId);
         } catch (RuntimeException e) {
